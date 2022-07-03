@@ -7,7 +7,7 @@ public class LongestSubstringWithoutRepeatingChars {
     public static String s = "abcabcbb";
     public static void bruteForce(String s) {
         // Time complexity 0(N) - length of string, chars are visited once
-        // Space complexity 0(N) - string could contain no duplicate chars so set would be size of string length
+        // Space complexity 0(1) - max size of hashset depends on character set in string (e.g. lowercase - 26, uppercase - 26, digits - 9); does not scale
 
         int start = 0;
         int end = start;
