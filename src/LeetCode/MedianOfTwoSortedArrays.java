@@ -80,7 +80,7 @@ public class MedianOfTwoSortedArrays {
     }
     public static double search(int[] nums1, int[] nums2) {
 
-        // Time complexity O(log(n+m)); using binary search on both arrays, reducing the search logarithmically
+        // Time complexity O(log(n+m)); using binary search on both arrays, reducing the search in half each time
         // Space complexity O(1);
 
         // Switching arrays so that nums1 is always smaller than nums2; doing binary search on smaller array
@@ -102,6 +102,10 @@ public class MedianOfTwoSortedArrays {
         // BINARY SEARCH
         while (low <= high) {
 
+            // L1 <= L2 is always true since first array is already sorted
+            // R1 <= R2 is always true since second array is already sorted
+            // Looking for L1 <= R2 and R1 <= L2; all numbers to the left of the partition are smaller than all numbers on right then both arrays are sorted
+
             // Partition of the first array; # of elements of the first array on the left side
                 // E.g. nums1.length = 4 ---> midpoint = 2 ---> 2 elements on left and 2 elements to the right of the partition
             int midpoint = low + (high - low) / 2;
@@ -110,17 +114,21 @@ public class MedianOfTwoSortedArrays {
             // Total # of elements on left and right partition equal size of combined arrays
             System.out.println("midpoint: " + midpoint + " and cutoff: " + cutOff);
 
-                /// RIGHT PARTITION ///
+                /// FIRST ARRAY ///
             // Max element on left partition of the first array
             int L1 = (midpoint == 0) ? Integer.MIN_VALUE : nums1[midpoint - 1];
             // Min element on right partition of the first array
             int R1 = (midpoint == nums1.length) ? Integer.MAX_VALUE : nums1[midpoint];
+                // E.g.    1 2 [4] | [6] 7      ---> L1 = 4 and R1 = 6
+                //           3  5  | 10 12 14
 
-                /// RIGHT PARTITION ///
+                /// SECOND ARRAY ///
             // Max element on left partition of the second array
             int L2 = (cutOff == 0) ? Integer.MIN_VALUE : nums2[cutOff - 1];
             // Min element on left partition of the second array
             int R2 = (cutOff == nums2.length) ? Integer.MAX_VALUE : nums2[cutOff];
+            // E.g.    1 2 4 | [6] 7
+            //         3 [5] | [10] 12 14  ---> L2 = 5 and R2 = 10
 
             // Eg.   L1  |  L2   -->   1 | 2   -->  1 <= 4 (true)   -->   1 2 | X   -->    2 <= 3 (true)
             //       R1  |  R2   -->   3 | 4   -->  3 <= 2 (false)  -->     X | 3 4   -->   -Infinity <= Infinity (true)
