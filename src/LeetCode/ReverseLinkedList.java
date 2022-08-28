@@ -1,7 +1,5 @@
 package LeetCode;
 
-import java.util.LinkedList;
-
 public class ReverseLinkedList {
 
 
@@ -10,27 +8,6 @@ public class ReverseLinkedList {
         // E.g.   NULL -> 3 -> 5 -> 4 -> 2 -> NULL  -------  head (3) points to 5 which points to 4...
     // Doubly-Linked List can point to the next AND previous address
         // E.g.   NULL <-> 3 <-> 5 <-> 4 <-> 2 <-> NULL  -------  head (3) points next to 5 and prev to NULL...
-
-    static class ListNode {
-        int value;
-        // Points to the next node in the list
-        ListNode next;
-        // Points to the previous node in the list
-//        ListNode prev;
-
-        ListNode() {}
-
-        ListNode (int value) {
-            this.value = value;
-        }
-
-        ListNode (int value, ListNode next) {
-            this.value = value;
-            this.next = next;
-        }
-
-    }
-
 
     public static ListNode linked() {
 
@@ -43,7 +20,6 @@ public class ReverseLinkedList {
         nodeA.next = nodeB;
         nodeB.next = nodeC;
         nodeC.next = nodeD;
-
 
 //        // Counting # of nodes in the linked list from head to null
 //        ListNode current = nodeA;
