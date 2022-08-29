@@ -3,6 +3,10 @@ package LeetCode;
 public class RemoveNthNodeFromEndOfList {
 
     public static void list() {
+
+        // Time complexity - O(N + (count - N)) -> O(N) - Traversing list once to get size, and again up until nth node from end
+        // Space complexity - O(1)
+
         // List
         ListNode nodeA = new ListNode(1);
         ListNode nodeB = new ListNode(2);
@@ -76,7 +80,61 @@ public class RemoveNthNodeFromEndOfList {
 
     }
 
+    public static void singlePass() {
+
+        // Time complexity - O(N) - Single pass through linked list
+        // Space complexity - O(1)
+
+        // List
+        ListNode nodeA = new ListNode(1);
+        ListNode nodeB = new ListNode(2);
+        ListNode nodeC = new ListNode(3);
+        ListNode nodeD = new ListNode(4);
+        ListNode nodeE = new ListNode(5);
+        // Linking
+        nodeA.next = nodeB;
+        nodeB.next = nodeC;
+        nodeC.next = nodeD;
+        nodeD.next = nodeE;
+
+        int n = 2;
+
+        ListNode dummy = new ListNode();
+        dummy.next = nodeA;
+
+        ListNode slow = dummy;
+        ListNode fast = dummy;
+
+        // Traverse the list until fast reaches n nodes from start
+        for (int i = 0; i <= n; i++) {
+            fast = fast.next;
+        }
+        // Fast continues until the end
+        // Slow traverses the list until it reaches node before nth node from end (sizeOfList - n)
+        while (fast !=null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        // Slow will reach the node that fast ended on after the for loop
+        // The nth node will be the node after slow; slow.next
+        // Remove it by pointing slow.next past nth node to slow.next.next
+            // E.g.  n = 2
+            //     1 -> [2] -> 3 -> 4  ---> slow = 2 --->  1 -> 2 -> 4; connected 2 to 4, removing 3
+        slow.next = slow.next.next;
+
+
+        ///// PRINTING OUT LIST /////
+
+        ListNode list = nodeA;
+        while (list != null) {
+            System.out.println("node: " + list.value);
+            list = list.next;
+        }
+    }
+
     public static void main(String[] args) {
-        list();
+//        list();
+        singlePass();
     }
 }
